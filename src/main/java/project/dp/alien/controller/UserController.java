@@ -2,6 +2,7 @@ package project.dp.alien.controller;
 
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -92,6 +93,16 @@ public class UserController
         } catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed adding user");
         }
+    }
+
+    @PostMapping(value = "/commit")
+    public ResponseEntity commit() {
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/rollback")
+    public ResponseEntity rollback() {
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 //    @RequestMapping(value = "/get")
