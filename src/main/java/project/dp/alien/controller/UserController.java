@@ -32,7 +32,7 @@ public class UserController
     public User getUser(@RequestParam("id") int id){
         try{
             User searched_user = repo.findById(id).get();
-            System.out.println(searched_user);
+            System.out.println("getId: " + searched_user);
             return searched_user;
         } catch(Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed adding user");
@@ -57,6 +57,7 @@ public class UserController
         try{
             if(repo.findById(user.getId()).isEmpty()) {
                 repo.save(user);
+                System.out.println("add: " + user);
             } else throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This user is present");
             List<User> users = new ArrayList<>();
             repo.findAll().forEach(users::add);
@@ -72,6 +73,7 @@ public class UserController
             User old_user = repo.findById(user.getId()).get();
             repo.delete(old_user);
             repo.save(user);
+            System.out.println("update: " + old_user + " --> " + user);
             List<User> users = new ArrayList<>();
             repo.findAll().forEach(users::add);
             return users;
@@ -84,6 +86,7 @@ public class UserController
     public List<User> deleteUser(User user){
         try{
             if(repo.findById(user.getId()).isPresent()) {
+                System.out.println("delete: " + user);
                 repo.delete(user);
             } else throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This user doesn't exist");
 
@@ -97,11 +100,13 @@ public class UserController
 
     @PostMapping(value = "/commit")
     public ResponseEntity commit() {
+        System.out.println("commit");
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping(value = "/rollback")
     public ResponseEntity rollback() {
+        System.out.println("rollback");
         return new ResponseEntity(HttpStatus.OK);
     }
 
