@@ -17,6 +17,7 @@ public class User {
     @Value("address")
     private String address;
 
+
     public int getId() {
         return id;
     }
